@@ -1,14 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Powerpoint on Avinash's Blog</title><link>https://avimallu.dev/tags/powerpoint/</link><description>Recent content in Powerpoint on Avinash's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><copyright>© Avinash Mallya</copyright><lastBuildDate>Fri, 20 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://avimallu.dev/tags/powerpoint/index.xml" rel="self" type="application/rss+xml"/><item><title>Quick hacks to make client-ready presentations</title><link>https://avimallu.dev/blog/003_powerpointsnap/</link><pubDate>Fri, 20 Oct 2023 00:00:00 +0000</pubDate><guid>https://avimallu.dev/blog/003_powerpointsnap/</guid><description>&lt;h1 id="premise">Premise&lt;/h1>
-&lt;p>When I worked in healthcare consulting, I often spent a LOT of my time creating PowerPoint presentations (&lt;em>decks&lt;/em> in consulting lingo - not even &lt;em>slide decks&lt;/em>). However, it was rather repetitive. Thus, was born PowerPointSnap.&lt;/p>
-&lt;h1 id="what-is-it">What is it?&lt;/h1>
-&lt;p>I&amp;rsquo;ll write this down as pointers.&lt;/p>
-&lt;ol>
-&lt;li>It&amp;rsquo;s a VBA based PowerPoint add-on. Just a set of commands that work well with each other.&lt;/li>
-&lt;li>It&amp;rsquo;s Windows only - it&amp;rsquo;s unlikely to work on MacOS.&lt;/li>
-&lt;li>It&amp;rsquo;s installation-free and is not an executable, which makes it perfect for locked-down corporate environments, as long as you have the permission to download files.&lt;/li>
-&lt;/ol>
-&lt;h1 id="how-do-i-get-it">How do I get it?&lt;/h1>
-&lt;p>The project is available on this &lt;a href="https://github.com/avimallu/PowerPointSnap">Github repo&lt;/a>. The instructions to install it are available there, but here&amp;rsquo;s the down-low:&lt;/p></description><content:encoded><![CDATA[<h1 id="premise">Premise</h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Powerpoint on Avinash&#39;s Blog</title>
+    <link>https://avimallu.dev/tags/powerpoint/</link>
+    <description>Recent content in Powerpoint on Avinash&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>© Avinash Mallya</copyright>
+    <lastBuildDate>Fri, 20 Oct 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://avimallu.dev/tags/powerpoint/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quick hacks to make client-ready presentations</title>
+      <link>https://avimallu.dev/blog/003_powerpointsnap/</link>
+      <pubDate>Fri, 20 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>https://avimallu.dev/blog/003_powerpointsnap/</guid>
+      <description>&lt;h1 id=&#34;premise&#34;&gt;Premise&lt;/h1&gt;&#xA;&lt;p&gt;When I worked in healthcare consulting, I often spent a LOT of my time creating PowerPoint presentations (&lt;em&gt;decks&lt;/em&gt; in consulting lingo - not even &lt;em&gt;slide decks&lt;/em&gt;). However, it was rather repetitive. Thus, was born PowerPointSnap.&lt;/p&gt;&#xA;&lt;h1 id=&#34;what-is-it&#34;&gt;What is it?&lt;/h1&gt;&#xA;&lt;p&gt;I&amp;rsquo;ll write this down as pointers.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;It&amp;rsquo;s a VBA based PowerPoint add-on. Just a set of commands that work well with each other.&lt;/li&gt;&#xA;&lt;li&gt;It&amp;rsquo;s Windows only - it&amp;rsquo;s unlikely to work on MacOS.&lt;/li&gt;&#xA;&lt;li&gt;It&amp;rsquo;s installation-free and is not an executable, which makes it perfect for locked-down corporate environments, as long as you have the permission to download files.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h1 id=&#34;how-do-i-get-it&#34;&gt;How do I get it?&lt;/h1&gt;&#xA;&lt;p&gt;The project is available on this &lt;a href=&#34;https://github.com/avimallu/PowerPointSnap&#34;&gt;Github repo&lt;/a&gt;. The instructions to install it are available there, but here&amp;rsquo;s the down-low:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h1 id="premise">Premise</h1>
 <p>When I worked in healthcare consulting, I often spent a LOT of my time creating PowerPoint presentations (<em>decks</em> in consulting lingo - not even <em>slide decks</em>). However, it was rather repetitive. Thus, was born PowerPointSnap.</p>
 <h1 id="what-is-it">What is it?</h1>
 <p>I&rsquo;ll write this down as pointers.</p>
@@ -98,4 +105,7 @@
 <p>Here&rsquo;s what you&rsquo;ll end up with:</p>
 <p><img src="/blog/003_powerpointsnap/Table_Presentation_2.png" alt="Similar data, and similar enough tables."></p>
 <p>Pretty neat, eh?</p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

@@ -1,13 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Representative on Avinash's Blog</title><link>https://avimallu.dev/tags/representative/</link><description>Recent content in Representative on Avinash's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><copyright>© Avinash Mallya</copyright><lastBuildDate>Thu, 19 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://avimallu.dev/tags/representative/index.xml" rel="self" type="application/rss+xml"/><item><title>Finding representative samples efficiently for large datasets</title><link>https://avimallu.dev/blog/002_representative_samples/</link><pubDate>Thu, 19 Oct 2023 00:00:00 +0000</pubDate><guid>https://avimallu.dev/blog/002_representative_samples/</guid><description>&lt;h1 id="premise">Premise&lt;/h1>
-&lt;p>In this day and age, we&amp;rsquo;re not short on data. &lt;em>Good&lt;/em> data, on the other hand, is very valuable. When you&amp;rsquo;ve got a large amount of improperly labelled data, it may become hard to find to find a representative dataset to train a model on such that it generalizes well.&lt;/p>
-&lt;p>Let&amp;rsquo;s formalize the problem a little so that a proper approach can be developed. Here&amp;rsquo;s the problem statement:&lt;/p>
-&lt;ol>
-&lt;li>You have a large-ish set of (imperfectly) labelled data points. These data points can be represented as a 2D matrix.&lt;/li>
-&lt;li>You need to train a model to classify these data points on either these labels, or on labels dervied from imperfect labels.&lt;/li>
-&lt;li>You need a good (but not perfect) representative sample for the model to be generalizable, but there are too many data points for each label to manually pick representative examples.&lt;/li>
-&lt;/ol>
-&lt;h2 id="in-a-hurry">In a hurry?&lt;/h2>
-&lt;p>Here&amp;rsquo;s what you need to do:&lt;/p></description><content:encoded><![CDATA[<h1 id="premise">Premise</h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Representative on Avinash&#39;s Blog</title>
+    <link>https://avimallu.dev/tags/representative/</link>
+    <description>Recent content in Representative on Avinash&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>© Avinash Mallya</copyright>
+    <lastBuildDate>Thu, 19 Oct 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://avimallu.dev/tags/representative/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finding representative samples efficiently for large datasets</title>
+      <link>https://avimallu.dev/blog/002_representative_samples/</link>
+      <pubDate>Thu, 19 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>https://avimallu.dev/blog/002_representative_samples/</guid>
+      <description>&lt;h1 id=&#34;premise&#34;&gt;Premise&lt;/h1&gt;&#xA;&lt;p&gt;In this day and age, we&amp;rsquo;re not short on data. &lt;em&gt;Good&lt;/em&gt; data, on the other hand, is very valuable. When you&amp;rsquo;ve got a large amount of improperly labelled data, it may become hard to find to find a representative dataset to train a model on such that it generalizes well.&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s formalize the problem a little so that a proper approach can be developed. Here&amp;rsquo;s the problem statement:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;You have a large-ish set of (imperfectly) labelled data points. These data points can be represented as a 2D matrix.&lt;/li&gt;&#xA;&lt;li&gt;You need to train a model to classify these data points on either these labels, or on labels dervied from imperfect labels.&lt;/li&gt;&#xA;&lt;li&gt;You need a good (but not perfect) representative sample for the model to be generalizable, but there are too many data points for each label to manually pick representative examples.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;in-a-hurry&#34;&gt;In a hurry?&lt;/h2&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s what you need to do:&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h1 id="premise">Premise</h1>
 <p>In this day and age, we&rsquo;re not short on data. <em>Good</em> data, on the other hand, is very valuable. When you&rsquo;ve got a large amount of improperly labelled data, it may become hard to find to find a representative dataset to train a model on such that it generalizes well.</p>
 <p>Let&rsquo;s formalize the problem a little so that a proper approach can be developed. Here&rsquo;s the problem statement:</p>
 <ol>
@@ -380,4 +388,7 @@
 <li>Apply a minimum threshold on similarity (completely based on heuristics), and obtain the connected components of the network graph from the filtered edge-list you just created.</li>
 <li>Map all indices back to their source data-points that make sense, and pick any number of items from each cluster (usually, I end up picking one element from each cluster), and you now have your representative sample!</li>
 </ol>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

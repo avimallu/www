@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Variables on Avinash&#39;s Blog</title>
+    <link>https://avimallu.dev/tags/variables/</link>
+    <description>Recent content in Variables on Avinash&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>© Avinash Mallya</copyright>
+    <lastBuildDate>Wed, 14 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://avimallu.dev/tags/variables/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Environment Variables and Multiprocessing</title>
+      <link>https://avimallu.dev/blog/004_environment_variables_and_multiprocessing/</link>
+      <pubDate>Wed, 14 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://avimallu.dev/blog/004_environment_variables_and_multiprocessing/</guid>
+      <description>&lt;h1 id=&#34;premise&#34;&gt;Premise&lt;/h1&gt;&#xA;&lt;p&gt;I needed to use a codebase that had a mix of light &lt;code&gt;numpy&lt;/code&gt; operations, coupled with a few heavy mathematical optimization problems that did not use &lt;code&gt;numpy&lt;/code&gt;.&#xA;The API that I had access to provided to be too slow (even asynchronously), so I thought I&amp;rsquo;ll run this locally on a faster system in parallel to speed&#xA;things up. Turns out, that was easier said than done, and I picked up the importance of environment variables along the way.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h1 id="premise">Premise</h1>
+<p>I needed to use a codebase that had a mix of light <code>numpy</code> operations, coupled with a few heavy mathematical optimization problems that did not use <code>numpy</code>.
+The API that I had access to provided to be too slow (even asynchronously), so I thought I&rsquo;ll run this locally on a faster system in parallel to speed
+things up. Turns out, that was easier said than done, and I picked up the importance of environment variables along the way.</p>
+<h1 id="in-detail">In detail</h1>
+<h2 id="demonstration-code">Demonstration code</h2>
+<p>Let&rsquo;s say that the &ldquo;black box&rdquo; code looked something like this.</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">acc</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="n">acc</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">compute_uv</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">acc</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></span></span></code></pre></div><p>The actual codebase was a full blown package that I wasn&rsquo;t familiar with, except for the following points:</p>
+<ol>
+<li>The author(s) had not attempted to parallelize the codebase.</li>
+<li>It used several packages, but most notably <code>numpy</code> and a few niche optimization tools.</li>
+<li>The most important bit: <code>numpy</code> was used sparingly, and the compute intensive part was in the optimization tools.</li>
+</ol>
+<h2 id="the-problem">The problem</h2>
+<p>I needed to call this script multiple times, supplying different arguments each time. A single call doesn&rsquo;t take much time on my system:</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">&gt; <span class="nb">time</span> python test.py <span class="m">0</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">real    0m0.861s
+</span></span><span class="line"><span class="ln">4</span><span class="cl">user    0m26.207s
+</span></span><span class="line"><span class="ln">5</span><span class="cl">sys     0m0.120s</span></span></code></pre></div><p>I could, of course, call it sequentially, but that wouldn&rsquo;t be very helpful:</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">&gt; <span class="nb">time</span> <span class="k">for</span> i in <span class="o">{</span>1..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span> python test.py <span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">real    0m8.100s
+</span></span><span class="line"><span class="ln">4</span><span class="cl">user    4m6.980s
+</span></span><span class="line"><span class="ln">5</span><span class="cl">sys     0m1.193s</span></span></code></pre></div><p>This isn&rsquo;t that bad - it looks like it took slightly less than the expected 8.6s, but it&rsquo;s no speedup.</p>
+<p>What about switching to good ol&rsquo; GNU <code>parallel</code>? I have 32 cores, so it should be fast, right?</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">&gt; <span class="nb">time</span> seq <span class="m">10</span> <span class="p">|</span> parallel -j32 <span class="s1">&#39;python test.py {}&#39;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">real    16m50.053s
+</span></span><span class="line"><span class="ln">4</span><span class="cl">user    521m15.773s
+</span></span><span class="line"><span class="ln">5</span><span class="cl">sys     0m42.995s</span></span></code></pre></div><p>Wow, that&rsquo;s actually around 125x <strong>SLOWER</strong>.</p>
+<blockquote>
+<p>An experienced programmer at this point would likely scream one of two words: CONTENTION! OVERSUBSCRIPTION!</p>
+</blockquote>
+<p>Let&rsquo;s explore what that means.</p>
+<h2 id="but-why">But why?</h2>
+<p><code>numpy</code> is a very optimized package. It tries to use all cores available under the hood so that it can do what you asked
+in the fastest possible time. This is a great idea when you have large matrices to operate on.</p>
+<p>However, we called <code>numpy</code> via Python here 10 separate times. Each of those 10 processes were trying to access 32 threads
+on the machine. 320 threads on 32 cores, which means that there were significantly more threads than cores, all actively
+vying for those 32 cores!</p>
+<p>The clearest signal of this is that a <em>naive attempt at parallelization via multiprocessing</em> being <strong>SLOWER</strong> than a
+sequential set of calls to the same operation. That&rsquo;s why using a system with more cores and trying to parallelize blindly
+doesn&rsquo;t always speed things up, and in the worst case, such as this, it considerably slows things down.</p>
+<h2 id="the-solution">The solution</h2>
+<p><code>numpy</code> uses different libraries for multithreading based on the system. Environment variables can be used to control the
+number of threads each process creates, a summary of which is provided below.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Variable</th>
+          <th style="text-align: center">Backend</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><code>OMP_NUM_THREADS</code></td>
+          <td style="text-align: center">OpenMP (used by many BLAS)</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><code>OPENBLAS_NUM_THREADS</code></td>
+          <td style="text-align: center">OpenBLAS</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><code>MKL_NUM_THREADS</code></td>
+          <td style="text-align: center">Intel MKL</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><code>BLIS_NUM_THREADS</code></td>
+          <td style="text-align: center">BLIS</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><code>VECLIB_MAXIMUM_THREADS</code></td>
+          <td style="text-align: center">Apple Accelerate</td>
+      </tr>
+  </tbody>
+</table>
+<p>To avoid oversubscription, we need to tell <code>numpy</code> to use fewer threads than the default (which is all threads), because
+(1) we are aware that the process running is not compute intensive, and (2) we will handle parallelism ourselves.</p>
+<p>On my system, I was using OpenMP, so all that I needed to do was:</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">&gt; <span class="nb">time</span> seq <span class="m">10</span> <span class="p">|</span> parallel -j32 <span class="s1">&#39;OMP_NUM_THREADS=1 python test.py {}&#39;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">real    0m0.612s
+</span></span><span class="line"><span class="ln">4</span><span class="cl">user    0m4.905s
+</span></span><span class="line"><span class="ln">5</span><span class="cl">sys     0m0.236s</span></span></code></pre></div><p>to make the slowest job among a set of 10 <em>run faster than single call to the script</em>!</p>
+<blockquote>
+<p>The real world impact in the actual codebase was 15x response time, and 30x throughput. What used to take 120 machines earlier took only 4 now!</p>
+</blockquote>
+<h2 id="ending-notes">Ending notes</h2>
+<p>Why did this work here? Let&rsquo;s revisit the &ldquo;most important&rdquo; bit of information from the demonstration code:</p>
+<blockquote>
+<p>The most important bit: <code>numpy</code> was used sparingly, and the compute intensive part was in the optimization tools.</p>
+</blockquote>
+<p>This technique of using environment variables to restrict the number of threads that a process can spawn, and then
+running it in parallel (via <code>parallel</code> based multiprocessing) will work in any case where multiple processes are
+spawned for each physical core, and you want to maximize throughput. In case the computations used by <code>numpy</code> are
+more compute intensive, you could experiment with allowing more threads while still paralllelizing:</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">seq <span class="m">10</span> <span class="p">|</span> parallel -j8 <span class="s1">&#39;OMP_NUM_THREADS=4 python test.py {}&#39;</span></span></span></code></pre></div><p>This allows use of up to 4 threads, while spawning 8 processes in parallel, and in theory still using a total of 32 cores.
+You may need to adjust this to find out what works best for your system.</p>
+<p>In addition, to make this work less dependent on the libraries that <code>numpy</code> can use, just set more (or all) of the
+environment variables:</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">seq <span class="m">10</span> <span class="p">|</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="se"></span>parallel -j32 <span class="s2">&#34;OMP_NUM_THREADS=1 \
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="s2">OPENBLAS_NUM_THREADS=1 \
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="s2">MKL_NUM_THREADS=1 \
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="s2">python test.py {}&#34;</span></span></span></code></pre></div><p>An interesting side note is that the parallel, but single core run took 0.61 seconds, <strong>less</strong> than the time it took to run
+a single call to the script on multiple cores (via threading in <code>numpy</code> internally). For large matrices, this also indicates
+that the overhead associated with spawning 32 threads for the single task might actually be significant - and running on a
+single core might just be inherently better!</p>
+<h2 id="footnotes">Footnotes</h2>
+<p>I&rsquo;ve simplified a few things in this blog post:</p>
+<ol>
+<li>This demo uses heavy <code>numpy</code> ops to clearly show the oversubscription effect. The actual codebase had much lighter
+usage, but the principle is the same.</li>
+<li>I&rsquo;ve used <em>contention</em> and <em>oversubscription</em> interchangeably here. The former is a case of threads competing for
+the same shared resource, and the latter is a higher thread count than CPU cores. <em>Oversubscription</em> here <strong>led</strong> to <em>contention</em>.</li>
+<li>Modern systems have hundreds, or thousands of active threads for very few system cores. The difference with most of
+these threads is that they often are &ldquo;sleeping&rdquo;, and don&rsquo;t <em>vie</em> for attention like the <code>numpy</code> ones.</li>
+</ol>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>
