@@ -431,7 +431,7 @@ these threads is that they often are &ldquo;sleeping&rdquo;, and don&rsquo;t <em
 <blockquote>
 <p><strong>NOTE</strong>: for a proof-of-concept implementation, or if you&rsquo;re on the CPU, try the <code>all-MiniLM-L6-v2</code> model. It&rsquo;s a much smaller and much faster model, although you sacrifice a little in terms of accuracy.</p>
 </blockquote>
-<h2 id="the-concept-of-_approximate_-nearest-neighbors">The concept of <em>approximate</em> nearest neighbors</h2>
+<h2 id="the-concept-of-approximate-nearest-neighbors">The concept of <em>approximate</em> nearest neighbors</h2>
 <p>Performing any kind of nearest neighbor algorithm on medium scale datasets (even bordering 10,000 rows and tens of columns) tends to be slow. A primary driver of this was the need to calculate all, or nearly all distances between all data points. <em>Approximate</em> nearest neighbor (ANN) algorithms work around this through various approaches, which warrant their own blog post. For now, it would suffice to understand that there are shortcuts that ANN algorithms take to give you if not the exact nearest neighbor, at least <em>one</em> of the nearest neighbors (hence the term <em>approximate</em>).</p>
 <p>There are several algorithms that you can use - I shall proceed with <code>faiss</code>, because it has a nice Python interface and is rather easy to work with. You can use any algorithm - a full list of the major ones are <a href="https://github.com/erikbern/ann-benchmarks">available here</a>.</p>
 <p>I&rsquo;ll explain why we&rsquo;re in the nearest neighbor territory in due course.</p>
@@ -1058,7 +1058,7 @@ these threads is that they often are &ldquo;sleeping&rdquo;, and don&rsquo;t <em
 <li>The default match type is that it matches all three cases from the image above. Side note: it also has matches for <code>within</code> overlap, matching <code>start</code> and <code>end</code> windows,</li>
 <li>The last two matching columns in the join condition in <code>by</code> must specify the <code>start</code> and <code>end</code> points of the overlapping window. This isn&rsquo;t a problem for us now, but does restrict for future uses where we may want non-equi joins on other cases.</li>
 </ol>
-<h3 id="the-code-_si_-the-code">The code, <em>si</em>, the code!</h3>
+<h3 id="the-code-si-the-code">The code, <em>si</em>, the code!</h3>
 <p>Without further ado:</p>
 
 
