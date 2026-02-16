@@ -76,6 +76,16 @@ It’s a VBA based PowerPoint add-on. Just a set of commands that work well with
   
 
   
+
+  
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css"
+      integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi"
+      crossorigin="anonymous"
+    >
+  
+
 </head>
 
 <body>
@@ -86,6 +96,8 @@ It’s a VBA based PowerPoint add-on. Just a set of commands that work well with
   <a href="/">about</a>
 
   <a href="/blog/">blog</a>
+
+  <a href="/series/">series</a>
 
   <a href="/projects/">projects</a>
 
@@ -145,7 +157,7 @@ It’s a VBA based PowerPoint add-on. Just a set of commands that work well with
 <p><img src="/blog/003_powerpointsnap/02_Charts.png" alt="The UI for copying chart properties"></p>
 <p>What do these features do? You should be able to hover over the option and get a tooltip that shows what it&rsquo;s capable of, but here&rsquo;s another summary just in case:</p>
 <ol>
-<li>Sync Value/Date Axis: this will try to align the range, the ticks, the numeric values etc. of the &ldquo;set&rdquo; chart to the one you&rsquo;ve selected. I couldn&rsquo;t put in just $x$ and $y$ here because Microsoft internally doesn&rsquo;t label them that way. Try either of these two options (you can undo!) and see what works best for your chart. This doesn&rsquo;t work well yet for 3D charts.</li>
+<li>Sync Value/Date Axis: this will try to align the range, the ticks, the numeric values etc. of the &ldquo;set&rdquo; chart to the one you&rsquo;ve selected. I couldn&rsquo;t put in just <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> here because Microsoft internally doesn&rsquo;t label them that way. Try either of these two options (you can undo!) and see what works best for your chart. This doesn&rsquo;t work well yet for 3D charts.</li>
 <li>Sync Plot/Title/Legend: often, you want to centre a title, or make sure that multiple charts that show nearly identical things for different variables all <em>look</em> exactly the same from a client perspective. But that&rsquo;s usually difficult if you&rsquo;ve already configured the charts a little - which can be remedied with this option!</li>
 <li>Format Painter: this is simply a helper for the normal format painter to align the formats of the text that you&rsquo;ve selected with the way it originally is in the &ldquo;set&rdquo; chart. The reason for this feature is simply to avoid going back to <em>Home</em> to click on the <em>Format Painter</em> option again.</li>
 <li>Reset Axes Scales: in case you messed up somewhere, you can use this to rever to PowerPoint defaults.</li>

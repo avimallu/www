@@ -1,7 +1,7 @@
 ---
 title: "projects"
 menu: "main"
-weight: 3
+weight: 4
 ---
 
 Most of my work is on private repositories, but I do find some time to learn new topics, contribute back to some of the open source packages I frequently use, or to create interesting tools.

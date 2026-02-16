@@ -3,12 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://avimallu.dev/</loc>
-    <lastmod>2026-02-10T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/blog/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://avimallu.dev/series/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://avimallu.dev/projects/</loc>
+  </url><url>
+    <loc>https://avimallu.dev/series/byhand/byhand_002_logarithms/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/series/byhand/byhand_001_square_roots/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/by-hand/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/euler/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/history/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/logarithms/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/mathematics/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/square-roots/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/</loc>
+    <lastmod>2026-02-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/dvc/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
@@ -26,9 +56,6 @@
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/storage/</loc>
-    <lastmod>2026-02-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://avimallu.dev/tags/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/environment/</loc>

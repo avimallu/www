@@ -20,6 +20,12 @@ enableRobotsTXT = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)'], ['$', '$']]
 
 # Multilingual mode config. More for information about how to setup translation,
 # see https://gohugo.io/content-management/multilingual/
@@ -79,3 +85,4 @@ enableRobotsTXT = true
   [params.author]
     # name = "Avinash Mallya" # Your name as shown in the RSS feed metadata
     # email = "nah@example.com" # Added to the footer so readers can reply to posts
+
