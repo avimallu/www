@@ -40,13 +40,19 @@
     <loc>https://avimallu.dev/tags/</loc>
     <lastmod>2026-02-15T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://avimallu.dev/tags/bottleneck/</loc>
+    <lastmod>2026-02-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://avimallu.dev/tags/dvc/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/images/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://avimallu.dev/blog/005_ldmb_as_image_db/</loc>
+    <loc>https://avimallu.dev/tags/io/</loc>
+    <lastmod>2026-02-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/tags/lmdb/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/machine-learning/</loc>
@@ -55,13 +61,13 @@
     <loc>https://avimallu.dev/tags/python/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://avimallu.dev/blog/005_ldmb_as_image_db/</loc>
+    <lastmod>2026-02-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://avimallu.dev/tags/storage/</loc>
     <lastmod>2026-02-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/environment/</loc>
-    <lastmod>2026-01-14T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://avimallu.dev/blog/004_environment_variables_and_multiprocessing/</loc>
     <lastmod>2026-01-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/multiprocessing/</loc>
@@ -71,6 +77,9 @@
     <lastmod>2026-01-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/parallel/</loc>
+    <lastmod>2026-01-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://avimallu.dev/blog/004_environment_variables_and_multiprocessing/</loc>
     <lastmod>2026-01-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://avimallu.dev/tags/variables/</loc>

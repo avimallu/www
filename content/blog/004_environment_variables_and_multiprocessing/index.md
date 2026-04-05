@@ -1,5 +1,5 @@
 ---
-title: Environment Variables and Multiprocessing
+title: Resolving Multiprocessing Bottlenecks in Legacy Batch Pipelines
 author: Avinash Mallya
 date: 2026-01-14
 tags: [python, numpy, multiprocessing, parallel, environment, variables]
@@ -88,22 +88,22 @@ However, we called `numpy` via Python here 10 separate times. Each of those 10 p
 on the machine. 320 threads on 32 cores, which means that there were significantly more threads than cores, all actively
 vying for those 32 cores!
 
-The clearest signal of this is that a *naive attempt at parallelization via multiprocessing* being **SLOWER** than a
+The clearest signal of this is that a _naive attempt at parallelization via multiprocessing_ being **SLOWER** than a
 sequential set of calls to the same operation. That's why using a system with more cores and trying to parallelize blindly
 doesn't always speed things up, and in the worst case, such as this, it considerably slows things down.
 
-## The solution 
+## The solution
 
 `numpy` uses different libraries for multithreading based on the system. Environment variables can be used to control the
 number of threads each process creates, a summary of which is provided below.
 
-| Variable |	Backend |
-| :-: | :-: |
-| `OMP_NUM_THREADS` |OpenMP (used by many BLAS)
-| `OPENBLAS_NUM_THREADS` |OpenBLAS
-| `MKL_NUM_THREADS` |Intel MKL
-| `BLIS_NUM_THREADS` |BLIS
-| `VECLIB_MAXIMUM_THREADS` |Apple Accelerate
+|         Variable         |          Backend           |
+| :----------------------: | :------------------------: |
+|    `OMP_NUM_THREADS`     | OpenMP (used by many BLAS) |
+|  `OPENBLAS_NUM_THREADS`  |          OpenBLAS          |
+|    `MKL_NUM_THREADS`     |         Intel MKL          |
+|    `BLIS_NUM_THREADS`    |            BLIS            |
+| `VECLIB_MAXIMUM_THREADS` |      Apple Accelerate      |
 
 To avoid oversubscription, we need to tell `numpy` to use fewer threads than the default (which is all threads), because
 (1) we are aware that the process running is not compute intensive, and (2) we will handle parallelism ourselves.
@@ -118,7 +118,7 @@ user    0m4.905s
 sys     0m0.236s
 ```
 
-to make the slowest job among a set of 10 *run faster than single call to the script*!
+to make the slowest job among a set of 10 _run faster than single call to the script_!
 
 > The real world impact in the actual codebase was 15x response time, and 30x throughput. What used to take 120 machines earlier took only 4 now!
 
@@ -161,8 +161,8 @@ single core might just be inherently better!
 I've simplified a few things in this blog post:
 
 1. This demo uses heavy `numpy` ops to clearly show the oversubscription effect. The actual codebase had much lighter
-usage, but the principle is the same.
-2. I've used *contention* and *oversubscription* interchangeably here. The former is a case of threads competing for
-the same shared resource, and the latter is a higher thread count than CPU cores. *Oversubscription* here **led** to *contention*.
+   usage, but the principle is the same.
+2. I've used _contention_ and _oversubscription_ interchangeably here. The former is a case of threads competing for
+   the same shared resource, and the latter is a higher thread count than CPU cores. _Oversubscription_ here **led** to _contention_.
 3. Modern systems have hundreds, or thousands of active threads for very few system cores. The difference with most of
-these threads is that they often are "sleeping", and don't *vie* for attention like the `numpy` ones.
+   these threads is that they often are "sleeping", and don't _vie_ for attention like the `numpy` ones.

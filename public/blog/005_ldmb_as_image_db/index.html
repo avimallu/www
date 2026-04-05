@@ -5,8 +5,8 @@
   <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LMDB as an image database | Avinash&#39;s Blog</title>
-<meta name="title" content="LMDB as an image database" />
+<title>Resolving I/O Bottlenecks for 100K Small Files with LMDB | Avinash&#39;s Blog</title>
+<meta name="title" content="Resolving I/O Bottlenecks for 100K Small Files with LMDB" />
 <meta name="description" content="Premise
 I was building a model for processing images (OCR, classification, object detection all bundled in), and I found myself with another problem - too many images to store efficiently as individual files on disk.
 I had several thousand images already.
@@ -17,7 +17,7 @@ DVC itself was slowing down (after all, randomly accessing many files isn&rsquo;
 I also needed to access files at random for training/evaluating the model (lots of shuffling).
 Lastly, these images had their own associated metadata (labels, bounding boxes, &ldquo;correct&rdquo; text etc.), and they need to be stored along with the images - or least easily linkable to them." />
 <meta name="author" content="Avinash Mallya" />
-<meta name="keywords" content="python,machine-learning,storage,images,dvc," />
+<meta name="keywords" content="python,machine-learning,storage,images,dvc,lmdb,bottleneck,io," />
 
 
 
@@ -27,7 +27,7 @@ Lastly, these images had their own associated metadata (labels, bounding boxes, 
   
   <meta property="og:url" content="https://avimallu.dev/blog/005_ldmb_as_image_db/">
   <meta property="og:site_name" content="Avinash&#39;s Blog">
-  <meta property="og:title" content="LMDB as an image database">
+  <meta property="og:title" content="Resolving I/O Bottlenecks for 100K Small Files with LMDB">
   <meta property="og:description" content="Premise I was building a model for processing images (OCR, classification, object detection all bundled in), and I found myself with another problem - too many images to store efficiently as individual files on disk.
 I had several thousand images already. I was expecting several thousand more. My repository was tracking these images via DVC. My computer was also slowing down massively because of the sheer number of files. DVC itself was slowing down (after all, randomly accessing many files isn’t going to be fast). I also needed to access files at random for training/evaluating the model (lots of shuffling). Lastly, these images had their own associated metadata (labels, bounding boxes, “correct” text etc.), and they need to be stored along with the images - or least easily linkable to them.">
   <meta property="og:locale" content="en_US">
@@ -40,6 +40,7 @@ I had several thousand images already. I was expecting several thousand more. My
     <meta property="article:tag" content="Storage">
     <meta property="article:tag" content="Images">
     <meta property="article:tag" content="Dvc">
+    <meta property="article:tag" content="Lmdb">
     <meta property="og:image" content="https://avimallu.dev/static/favicon.ico">
 
 
@@ -47,21 +48,21 @@ I had several thousand images already. I was expecting several thousand more. My
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://avimallu.dev/static/favicon.ico">
-  <meta name="twitter:title" content="LMDB as an image database">
+  <meta name="twitter:title" content="Resolving I/O Bottlenecks for 100K Small Files with LMDB">
   <meta name="twitter:description" content="Premise I was building a model for processing images (OCR, classification, object detection all bundled in), and I found myself with another problem - too many images to store efficiently as individual files on disk.
 I had several thousand images already. I was expecting several thousand more. My repository was tracking these images via DVC. My computer was also slowing down massively because of the sheer number of files. DVC itself was slowing down (after all, randomly accessing many files isn’t going to be fast). I also needed to access files at random for training/evaluating the model (lots of shuffling). Lastly, these images had their own associated metadata (labels, bounding boxes, “correct” text etc.), and they need to be stored along with the images - or least easily linkable to them.">
 
 
   
   
-  <meta itemprop="name" content="LMDB as an image database">
+  <meta itemprop="name" content="Resolving I/O Bottlenecks for 100K Small Files with LMDB">
   <meta itemprop="description" content="Premise I was building a model for processing images (OCR, classification, object detection all bundled in), and I found myself with another problem - too many images to store efficiently as individual files on disk.
 I had several thousand images already. I was expecting several thousand more. My repository was tracking these images via DVC. My computer was also slowing down massively because of the sheer number of files. DVC itself was slowing down (after all, randomly accessing many files isn’t going to be fast). I also needed to access files at random for training/evaluating the model (lots of shuffling). Lastly, these images had their own associated metadata (labels, bounding boxes, “correct” text etc.), and they need to be stored along with the images - or least easily linkable to them.">
   <meta itemprop="datePublished" content="2026-02-10T00:00:00+00:00">
   <meta itemprop="dateModified" content="2026-02-10T00:00:00+00:00">
   <meta itemprop="wordCount" content="1951">
   <meta itemprop="image" content="https://avimallu.dev/static/favicon.ico">
-  <meta itemprop="keywords" content="Python,Machine-Learning,Storage,Images,Dvc">
+  <meta itemprop="keywords" content="Python,Machine-Learning,Storage,Images,Dvc,Lmdb,Bottleneck,Io">
 
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -106,7 +107,7 @@ I had several thousand images already. I was expecting several thousand more. My
 </header>
   <main id="main-content">
 
-<h1>LMDB as an image database</h1>
+<h1>Resolving I/O Bottlenecks for 100K Small Files with LMDB</h1>
 <p class="byline">
   <time datetime='2026-02-10' pubdate>
     2026-02-10
@@ -383,6 +384,12 @@ storage, and their own <a href="https://huggingface.co/docs/datasets/index"><cod
     <a class="blog-tags" href="/tags/images/">#images</a>
   
     <a class="blog-tags" href="/tags/dvc/">#dvc</a>
+  
+    <a class="blog-tags" href="/tags/lmdb/">#lmdb</a>
+  
+    <a class="blog-tags" href="/tags/bottleneck/">#bottleneck</a>
+  
+    <a class="blog-tags" href="/tags/io/">#io</a>
   
 </p>
 

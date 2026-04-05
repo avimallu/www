@@ -1,8 +1,8 @@
 ---
-title: LMDB as an image database
+title: Resolving I/O Bottlenecks for 100K Small Files with LMDB
 author: Avinash Mallya
 date: 2026-02-10
-tags: [python, machine-learning, storage, images, dvc]
+tags: [python, machine-learning, storage, images, dvc, lmdb, bottleneck, io]
 ---
 
 # Premise
@@ -99,12 +99,12 @@ the files elsewhere while maintaining just the index in it still had the origina
 of maintaining the index.
 
 > Note: HuggingFace now provides many images datasets (such as [MNIST](https://huggingface.co/datasets/ylecun/mnist)) in
-the Parquet format, with the images stored using Arrow's extension types (but still as binary blobs). My experience with
-storing binary data in Parquet hasn't been great, but you could check this out to see if it meets your requirements.
+> the Parquet format, with the images stored using Arrow's extension types (but still as binary blobs). My experience with
+> storing binary data in Parquet hasn't been great, but you could check this out to see if it meets your requirements.
 
 # The solution I landed on
 
-## What about a... *different* kind of database?
+## What about a... _different_ kind of database?
 
 Let's get down to first principles. What did I want to do? I wanted to store images. With those images, I also wanted
 to store its metadata. I wanted to access said data quickly. It became clearer to me that I was looking for a fast key-value
@@ -285,13 +285,12 @@ This article covers a "quick and dirty" solution, and was before more purpose-bu
 solutions were available. Some alternatives are:
 
 1. If you're comfortable operating directly on archives, a simple `tar` file will
-do - it can provide an offset index to provide random access to data.
+   do - it can provide an offset index to provide random access to data.
 2. [Nvidia's WebDataset](https://github.com/webdataset/webdataset). Modern, open
-source and purpose built for large scale deep learning.
+   source and purpose built for large scale deep learning.
 3. [LanceDB](https://lancedb.com/), which describes itself as "designed for multimodal"
-and "built for scale". It's built on top of Arrow, closely related to Parquet.
+   and "built for scale". It's built on top of Arrow, closely related to Parquet.
 4. As mentioned, HuggingFace has multiple solutions to this, starting with Arrow backed
-storage, and their own [`datasets`](https://huggingface.co/docs/datasets/index).
-
+   storage, and their own [`datasets`](https://huggingface.co/docs/datasets/index).
 
 Use these if you want to scale to production level training.

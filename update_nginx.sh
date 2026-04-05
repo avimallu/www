@@ -1,4 +1,4 @@
-hugo && sudo rsync -av --delete public/ <location>
+hugo && rsync -av --delete public/ vps:~/www
 # Also might need
-chmod -R o+rX <location>
+ssh vps "chmod -R o+rX www/"
 
