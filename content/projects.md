@@ -9,8 +9,9 @@ Most of my work is on private repositories, but I do find some time to learn new
 # Featured projects
 
 1. [ducktabe](https://github.com/avimallu/ducktabe): Short for **Duck**DB **Tab**ular **E**xplorer. A small tool to run SQL on parquet files I generated, for "quick and dirty" analysis. I am working on improving it over time and packaging it for distribution - currently it is in a pre-alpha stage.
-2. [BorrowChecker](https://avimallu.github.io/BorrowChecker/): A play on the same concept in Rust, this is a simple web-app that allows you to split complex receipts with multiple people in a simple manner. Runs entirely in-browser. Made with Dioxus and Rust. [Repository link](https://github.com/avimallu/BorrowChecker).
-3. [PowerPointSnap](https://github.com/avimallu/PowerPointSnap): A mostly feature complete tool for PowerPoint on VBA that is filled with a lot of tricks to make it easy to consistently format presentations to impress clients - from my consulting days. Written in VBA. See accompanying [blog post]({{< ref "blog/003_powerpointsnap">}}).
+2. [ducktabe-py](https://github.com/avimallu/ducktabe-py): An offshoot of the Rust version above, but written entirely by AI. It is my first foray into spec-driven development, in a language and general area that I've got significant experience in. It is surprisingly capable, and is [available on PyPI](https://pypi.org/project/ducktabe/).
+3. [BorrowChecker](https://avimallu.github.io/BorrowChecker/): A play on the same concept in Rust, this is a simple web-app that allows you to split complex receipts with multiple people in a simple manner. Runs entirely in-browser. Made with Dioxus and Rust. [Repository link](https://github.com/avimallu/BorrowChecker).
+4. [PowerPointSnap](https://github.com/avimallu/PowerPointSnap): A mostly feature complete tool for PowerPoint on VBA that is filled with a lot of tricks to make it easy to consistently format presentations to impress clients - from my consulting days. Written in VBA. See accompanying [blog post]({{< ref "blog/003_powerpointsnap">}}).
 
 # Other work or contributions
 
